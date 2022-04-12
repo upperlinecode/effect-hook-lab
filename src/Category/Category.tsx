@@ -1,5 +1,3 @@
-import { createReadStream } from 'fs';
-import React from 'react';
 import { CardType } from '../utils';
 import Card from '../Card/Card';
 import "./Category.css"
