@@ -1,12 +1,5 @@
 import data from "./sample_data.json"
 
-export type APIData = typeof data
-export const newGame = () => {
-    return callAPI()
-}
-
-
-
 export const callAPI = () => {
     return fetch('https://jservice.io/api/random?count=100')
         .then(data => data.json())
@@ -44,12 +37,12 @@ export const cleanData = (data: APIData) => {
         if (countValues == 5) {
             finalData[category] = cleanedData[category]
         }
-
     }
     return finalData
 }
 
 const sampleDataType = cleanData(data)
+export type APIData = typeof data
 export type CategoryType = typeof sampleDataType
 export type CardType = typeof data[0]
 
