@@ -13,9 +13,7 @@ export default function Card(props: { data: CardType, updateScore: Function }) {
     }, [])
 
     const handleClick = () => {
-        if (clickable) {
-            setShowing("back")
-        }
+        clickable && setShowing("back")
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
