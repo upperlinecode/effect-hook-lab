@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Card.css';
 import { CardType } from '../utils';
 
@@ -16,10 +16,10 @@ export default function Card(props: { data: CardType }) {
     return (
         <div className="Card" >
             <div className={`card-front ${showing === "back" ? "hidden" : ""}`} onClick={handleClick}>
-                {/* CARD VALUE HERE */}
+                <p className="card-value">{/* CARD VALUE HERE */}</p>
             </div>
             <div className={`card-back ${showing === "front" ? "hidden" : ""}`}>
-                {/* CARD QUESTION HERE */}
+                <p className="card-question">{/* CARD QUESTION HERE */}</p>
             </div>
         </div>
     )
