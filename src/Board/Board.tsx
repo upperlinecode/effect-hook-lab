@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { CategoryType, CardType } from '../utils';
 import Category from "../Category/Category"
 import "./Board.css"
