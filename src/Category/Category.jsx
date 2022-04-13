@@ -1,7 +1,7 @@
 import Card from "../Card/Card";
 import "./Category.css";
 
-function Category(props) {
+const Category = (props) => {
   return (
     <div className="Category">
       <div className="title-card">
@@ -10,6 +10,6 @@ function Category(props) {
       {/* ADD CARDS HERE */}
     </div>
   );
-}
+};
 
 export default Category;

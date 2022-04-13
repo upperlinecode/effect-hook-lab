@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Card.css";
 
-export default function Card(props) {
+const Card = (props) => {
   const [showing, setShowing] = useState("front");
   const [clickable, setClickable] = useState(true);
 
@@ -22,4 +22,6 @@ export default function Card(props) {
       </div>
     </div>
   );
-}
+};
+
+export default Card;
