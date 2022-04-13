@@ -13,7 +13,7 @@
 
 ## The Lab
 
-1. **Render the Board** - Get sample data to render using the pre-built components & cleaning methods. You can see the sample data in the `sample_data.json` file. Note that we have included some initial type aliases in `utils.js` that may come in handy. We have also already built a cleaning function for you called `cleanData`, which is located in `utils.js`.  While you are welcome to modify this function, you do not have to in order to get the application working. Because the cleaning function re-organizes the data, be sure to log the cleaned data so you understand the structure you'll be working with. The component structure is set up like:
+1. **Render the Board** - Get sample data to render using the pre-built components & cleaning methods. You can see the sample data in the `sample_data.json` file. We have also already built a cleaning function for you called `cleanData`, which is located in `utils.js`.  While you are welcome to modify this function, you do not have to in order to get the application working. Because the cleaning function re-organizes the data, be sure to log the cleaned data so you understand the structure you'll be working with. The component structure is set up like:
     * App - we'll be making our API calls from this level of the application
         * Board - the Board component holds all columns and rows of the game board. it receives the full, cleaned data structure as a prop.
             * Category - the Category component holds a single column from the game board. It receives two props currently - the `name` of the category and an array of `cards` (each of which is an object containing information about a single clue).
