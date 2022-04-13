@@ -8,9 +8,7 @@ export default function Card(props: { data: CardType }) {
 
 
     const handleClick = () => {
-        if (clickable) {
-            setShowing("back")
-        }
+        clickable && setShowing("back")
     }
 
     return (
