@@ -33,7 +33,10 @@ import data from "./sample_data.json";
  * @returns {Promise<Data[]>} - Returns the
  */
 export const callAPI = () => {
-  //WRITE YOUR API CALL HERE
+  // You can make your call to the API here
+  // The endpoint that was used in testing was
+  // 'https://jservice.io/api/random?count=100'
+  // The response from this endpoint will play nicely with the cleaning function below.
 };
 
 /**
