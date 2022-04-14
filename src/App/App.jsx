@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import "./App.css";
 import Board from "../Board/Board";
-import { callAPI, cleanData } from "../utils";
+import { cleanData } from "../utils";
 import data from "../sample_data.json";
 
 const App = () => {

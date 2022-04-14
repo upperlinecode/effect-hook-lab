@@ -58,7 +58,7 @@ Before you begin the lab, know that the data cleaning team has already built a h
 
 - **Styling** - Update the styling to be even closer to the actual jeopardy game - we leave this up to your creativity!
 - **Responsiveness** - Update the styling to ensure the game is responsive on all standard screen sizes
-- **Data Cleaning** - Some clues have images that are not included, rendering the clues useless. Others have `<i>` tags, and still others have parenthtical annotations. All of these make the questions difficult to answer in this format. Implement advanced data cleaning to handle these exceptions. We've given you a starter cleaning function called `cleanAnswer` in the `utils.js` file. Consider using:
+- **Data Cleaning** - Some clues have images that are not included, rendering the clues useless. Others have `<i>` tags, and still others have parenthetical annotations. All of these make the questions difficult to answer in this format. Implement advanced data cleaning to handle these exceptions. We've given you a starter cleaning function called `cleanAnswer` in the `utils.js` file. Consider using:
   - Regex
   - Fuzzy string matching algorithms/libraries
 - **One at a Time** - Currently, it is possible to open more than one clue at a time. Fix this bug so that only one clue can be open at any one time!

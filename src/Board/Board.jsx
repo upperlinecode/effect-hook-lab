@@ -1,4 +1,4 @@
-import Category from "../Category/Category";
+// import Category from "../Category/Category";
 import "./Board.css";
 
 const Board = (props) => {

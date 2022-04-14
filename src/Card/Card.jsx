@@ -7,6 +7,7 @@ const Card = (props) => {
 
   const handleClick = () => {
     clickable && setShowing("back");
+    setClickable(false);
   };
 
   return (
