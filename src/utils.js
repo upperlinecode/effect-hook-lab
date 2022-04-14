@@ -1,9 +1,46 @@
 import data from "./sample_data.json";
 
+/**
+ * @typedef {Object} Category
+ * @property {number} id
+ * @property {string} title
+ * @property {string} created_at
+ * @property {string} updated_at
+ * @property {number} clues_count
+ */
+
+/**
+ * @typedef {Object} Data
+ * @property {number} id
+ * @property {string} answer
+ * @property {string} question
+ * @property {string} value
+ * @property {string} airdate
+ * @property {string} created_at
+ * @property {string} updated_at
+ * @property {number} category_id
+ * @property {number} game_id
+ * @property {number | null} invalid_count
+ * @property {Category} category
+ */
+
+/**
+ * @typedef {Object} DataMap
+ * @property {Data} [categoryTitle]
+ */
+
+/**
+ * @returns {Promise<Data[]>} - Returns the
+ */
 export const callAPI = () => {
   //WRITE YOUR API CALL HERE
 };
 
+/**
+ * @param {Data[]} data
+ *
+ * @returns {DataMap}
+ */
 export const cleanData = (data) => {
   // re-organizes the raw API data to an object that looks like:
   // {
@@ -36,10 +73,14 @@ export const cleanData = (data) => {
   return finalData;
 };
 
-const sampleDataType = cleanData(data);
-
-// use this function as a starter to clean answers before you check if the user's guess is correct!
-const cleanAnswer = (answer) => {
+/**
+ * use this function as a starter to clean answers before you check if the user's guess is correct!
+ *
+ * @param {string} answer
+ *
+ * @returns {string}
+ */
+export const cleanAnswer = (answer) => {
   const substringsToRemove = ["<i>", "</i>", '"', "<", "a ", "the "];
   substringsToRemove.forEach((substring) => {
     answer = answer.replace(substring, "");
