@@ -2,11 +2,11 @@ import { CardType } from "../utils";
 import Card from "../Card/Card";
 import "./Category.css";
 
-function Category(props: {
+const Category = (props: {
   name: string;
   cards: [CardType];
   updateScore: Function;
-}) {
+}) => {
   return (
     <div className="Category">
       <div className="title-card">
@@ -19,6 +19,6 @@ function Category(props: {
       })}
     </div>
   );
-}
+};
 
 export default Category;

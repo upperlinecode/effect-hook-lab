@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Card.css";
 import { CardType, cleanAnswer } from "../utils";
 
-export default function Card(props: { data: CardType; updateScore: Function }) {
+const Card = (props: { data: CardType; updateScore: Function }) => {
   const [showing, setShowing] = useState("front");
   const [guess, setGuess] = useState("");
   const [clickable, setClickable] = useState(true);
@@ -59,4 +59,6 @@ export default function Card(props: { data: CardType; updateScore: Function }) {
       </div>
     </div>
   );
-}
+};
+
+export default Card;

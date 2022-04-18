@@ -4,7 +4,7 @@ import Board from "../Board/Board";
 import { callAPI, cleanData } from "../utils";
 import NewGameButton from "../NewGameButton/NewGameButton";
 
-function App() {
+const App = () => {
   const [score, setScore] = useState(0);
   const [data, setData] = useState({});
   const [reset, setReset] = useState(false);
@@ -37,6 +37,6 @@ function App() {
       <Board updateScore={updateScore} categories={data} />
     </div>
   );
-}
+};
 
 export default App;
