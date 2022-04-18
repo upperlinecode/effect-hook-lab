@@ -11,7 +11,7 @@ export default function Card(props: { data: CardType; updateScore: Function }) {
   useEffect(() => {
     console.log(cleanAnswer(props.data.answer.toLowerCase()));
     setCorrectAnswer(cleanAnswer(props.data.answer.toLowerCase()));
-  }, []);
+  }, [props.data.answer]);
 
   const handleClick = () => {
     clickable && setShowing("back");
