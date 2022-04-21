@@ -3,7 +3,7 @@ import "./Card.css";
 import { CardType, cleanAnswer } from "../utils";
 
 const Card = (props: { data: CardType; updateScore: Function }) => {
-  const [showing, setShowing] = useState("front");
+  const [showing, setShowing] = useState<"front" | "back">("front");
   const [guess, setGuess] = useState("");
   const [clickable, setClickable] = useState(true);
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -25,7 +25,7 @@ const Card = (props: { data: CardType; updateScore: Function }) => {
     // update the score based on whether the guess was correct
     const guessIsCorrect =
       cleanAnswer(guess.toLowerCase().trim()) === correctAnswer;
-    const value = props.data.value ? props.data.value : 0;
+    const value = props.data.value ? parseInt(props.data.value) : 0;
     const scoreToAdd = guessIsCorrect ? value : value * -1;
     props.updateScore(scoreToAdd);
 
