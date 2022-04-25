@@ -1,8 +1,8 @@
-import { CategoryType } from "../utils";
+import { CategoryType } from "../../utils";
 import Category from "../Category/Category";
 import "./Board.css";
 
-const Board = (props: { categories: CategoryType; updateScore: Function }) => {
+const Board = (props: { categories: CategoryType }) => {
   const categoryList = Object.keys(props.categories).slice(0, 5);
   return (
     <div className="Board">
@@ -10,7 +10,6 @@ const Board = (props: { categories: CategoryType; updateScore: Function }) => {
         const categoryCards = props.categories[categoryName];
         return (
           <Category
-            updateScore={props.updateScore}
             key={categoryName}
             name={categoryName}
             cards={categoryCards}

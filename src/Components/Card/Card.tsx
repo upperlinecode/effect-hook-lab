@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./Card.css";
-import { CardType, cleanAnswer } from "../utils";
+import { CardType, cleanAnswer } from "../../utils";
+import { useDispatch } from "react-redux";
+import { increaseScore } from "../../redux/actions";
 
-const Card = (props: { data: CardType; updateScore: Function }) => {
+const Card = (props: { data: CardType }) => {
   const [showing, setShowing] = useState<"front" | "back">("front");
   const [guess, setGuess] = useState("");
   const [clickable, setClickable] = useState(true);
   const [correctAnswer, setCorrectAnswer] = useState("");
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    console.log(cleanAnswer(props.data.answer.toLowerCase()));
+    // console.log(cleanAnswer(props.data.answer.toLowerCase()));
     setCorrectAnswer(cleanAnswer(props.data.answer.toLowerCase()));
   }, [props.data.answer]);
 
@@ -26,8 +30,18 @@ const Card = (props: { data: CardType; updateScore: Function }) => {
     const guessIsCorrect =
       cleanAnswer(guess.toLowerCase().trim()) === correctAnswer;
     const value = props.data.value ?? 100;
-    const scoreToAdd = guessIsCorrect ? value : value * -1;
-    props.updateScore(scoreToAdd);
+    // ===== Let's refactor this to redux ====
+    // const scoreToAdd = guessIsCorrect ? value : value * -1;
+    // props.updateScore(scoreToAdd);
+    // ===== Redux Refactor ========
+    if (guessIsCorrect) {
+      dispatch(increaseScore(value));
+    } else {
+      dispatch({
+        type: "DECREASE_SCORE",
+        payload: value,
+      });
+    }
 
     // turn the card back to the front and make it not clickable
     setShowing("front");
