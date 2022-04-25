@@ -1,8 +1,8 @@
 interface Category {
   id: number;
   title: string;
-  created_at: string;
-  updated_at: string;
+  created_at?: string;
+  updated_at?: string;
   clues_count: number;
 }
 
@@ -11,13 +11,13 @@ export interface CardType {
   answer: string;
   question: string;
   value: string;
-  airdate: string;
-  created_at: string;
-  updated_at: string;
-  category_id: number;
-  game_id: number;
-  invalid_count: number | null;
-  category: Category;
+  airdate?: string;
+  created_at?: string;
+  updated_at?: string;
+  category_id?: number;
+  game_id?: number;
+  invalid_count?: number | null;
+  category?: Category;
 }
 
 export interface CategoryType {
@@ -43,10 +43,12 @@ export const cleanData = (data: APIData) => {
   //  ...
   // }
   const cleanedData = data.reduce((acc, currentValue) => {
-    if (currentValue.category.title in acc) {
-      acc[currentValue.category.title].push(currentValue);
-    } else {
-      acc[currentValue.category.title] = [currentValue];
+    if (currentValue.category) {
+      if (currentValue.category.title in acc) {
+        acc[currentValue.category.title].push(currentValue);
+      } else {
+        acc[currentValue.category.title] = [currentValue];
+      }
     }
     return acc;
   }, {} as CategoryType);

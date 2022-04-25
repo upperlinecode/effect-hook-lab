@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./Card.css";
 import { CardType, cleanAnswer } from "../utils";
+import {
+  CardFace,
+  CardRoot,
+  CardValue,
+  CardQuestion,
+  Answer,
+  AnswerGroup,
+} from "./Card.styles";
 
-const Card = (props: { data: CardType; updateScore: Function }) => {
+export interface CardProps {
+  data: CardType;
+  updateScore: Function;
+}
+
+const Card = (props: CardProps) => {
   const [showing, setShowing] = useState<"front" | "back">("front");
   const [guess, setGuess] = useState("");
   const [clickable, setClickable] = useState(true);
@@ -35,29 +48,29 @@ const Card = (props: { data: CardType; updateScore: Function }) => {
   };
 
   return (
-    <div className="Card">
-      <div
-        className={`card-front ${showing === "back" ? "hidden" : ""}`}
+    <CardRoot>
+      <CardFace
+        className={showing === "back" ? "hidden" : ""}
         onClick={handleClick}
         style={{ color: clickable ? "" : "white" }}
       >
-        <h4 className="card-value">{props.data.value}</h4>
-        <p className={`answer ${clickable ? "hidden" : ""}`}>
+        <CardValue>{props.data.value}</CardValue>
+        <Answer className={clickable ? "hidden" : ""}>
           Answer: {correctAnswer}
-        </p>
-      </div>
-      <div className={`card-back ${showing === "front" ? "hidden" : ""}`}>
-        <p className="card-question">{props.data.question}</p>
-        <div className="answer-group">
+        </Answer>
+      </CardFace>
+      <CardFace className={showing === "front" ? "hidden" : ""}>
+        <CardQuestion>{props.data.question}</CardQuestion>
+        <AnswerGroup>
           <input
             type="text"
             name="answer-box"
             onChange={(e) => handleChange(e)}
           />
           <button onClick={() => handleSubmit()}>Guess!</button>
-        </div>
-      </div>
-    </div>
+        </AnswerGroup>
+      </CardFace>
+    </CardRoot>
   );
 };
 
