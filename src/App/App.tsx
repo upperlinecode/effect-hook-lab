@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Board from "../Board/Board";
-import { callAPI, cleanData } from "../utils";
+import { callAPI, CategoryType, cleanData } from "../utils";
+import sampleData from "../sample_data.json";
 import NewGameButton from "../NewGameButton/NewGameButton";
 
 const App = () => {
   const [score, setScore] = useState(0);
-  const [data, setData] = useState({});
+  const [data, setData] = useState<CategoryType>({});
   const [reset, setReset] = useState(false);
 
   const updateScore = (scoreToAdd: number) => {

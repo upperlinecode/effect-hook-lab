@@ -4,7 +4,7 @@ import "./Category.css";
 
 const Category = (props: {
   name: string;
-  cards: [CardType];
+  cards: CardType[];
   updateScore: Function;
 }) => {
   return (

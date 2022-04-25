@@ -25,7 +25,7 @@ const Card = (props: { data: CardType; updateScore: Function }) => {
     // update the score based on whether the guess was correct
     const guessIsCorrect =
       cleanAnswer(guess.toLowerCase().trim()) === correctAnswer;
-    const value = props.data.value ? parseInt(props.data.value) : 0;
+    const value = props.data.value ?? 100;
     const scoreToAdd = guessIsCorrect ? value : value * -1;
     props.updateScore(scoreToAdd);
 

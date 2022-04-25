@@ -10,12 +10,12 @@ export interface CardType {
   id: number;
   answer: string;
   question: string;
-  value: string;
+  value: number | null;
   airdate: string;
   created_at: string;
   updated_at: string;
   category_id: number;
-  game_id: number;
+  game_id: number | null;
   invalid_count: number | null;
   category: Category;
 }
@@ -24,7 +24,7 @@ export interface CategoryType {
   [categoryTitle: string]: CardType[];
 }
 
-type APIData = CardType[];
+export type APIData = CardType[];
 
 export const callAPI = (): Promise<APIData> => {
   return fetch("https://jservice.io/api/random?count=100")
