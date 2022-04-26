@@ -49,3 +49,4 @@
 7. Update selectors to pull correctly from the store.
 8. Create a `useAppDispatch` and a `useAppSelector` to be "smarter" with TypeScript so that it knows what actions our store accepts and what selectors are valid based on our store.
 9. Replace existing `useDispatch` and `useSelector` with our `useAppDispatch` and `useAppSelector`.
+10. **EXTENSION:** Add in a thunk to handle fetching data and add it to our slice inside extraReducers.
