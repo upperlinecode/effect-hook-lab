@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Card.css";
 import { CardType, cleanAnswer } from "../../utils";
-import { useDispatch } from "react-redux";
-import { increaseScore } from "../../redux/actions";
+import { slice, useAppDispatch } from "../../redux/configureStore";
 
 const Card = (props: { data: CardType }) => {
   const [showing, setShowing] = useState<"front" | "back">("front");
@@ -10,7 +9,7 @@ const Card = (props: { data: CardType }) => {
   const [clickable, setClickable] = useState(true);
   const [correctAnswer, setCorrectAnswer] = useState("");
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     // console.log(cleanAnswer(props.data.answer.toLowerCase()));
@@ -35,12 +34,9 @@ const Card = (props: { data: CardType }) => {
     // props.updateScore(scoreToAdd);
     // ===== Redux Refactor ========
     if (guessIsCorrect) {
-      dispatch(increaseScore(value));
+      dispatch(slice.actions.increaseScore(value));
     } else {
-      dispatch({
-        type: "DECREASE_SCORE",
-        payload: value,
-      });
+      dispatch(slice.actions.decreaseScore(value));
     }
 
     // turn the card back to the front and make it not clickable

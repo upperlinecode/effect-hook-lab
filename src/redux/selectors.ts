@@ -1,4 +1,4 @@
-import { stateType } from "./configureStore";
+import { RootState } from "./configureStore";
 
-export const getScore = (state: stateType) => state.score;
-export const getStatus = (state: stateType) => state.status;
+export const getScore = (state: RootState) => state.app.score;
+export const getStatus = (state: RootState) => state.app.status;

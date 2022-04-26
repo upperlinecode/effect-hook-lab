@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import "./App.css";
 import Board from "../Board/Board";
 import { callAPI, CategoryType, cleanData } from "../../utils";
 import sampleData from "../../sample_data.json";
 import NewGameButton from "../NewGameButton/NewGameButton";
 import { getStatus, getScore } from "../../redux/selectors";
+import {
+  slice,
+  useAppDispatch,
+  useAppSelector,
+} from "../../redux/configureStore";
+
+import "./App.css";
 
 const App = () => {
   const [data, setData] = useState<CategoryType>(cleanData(sampleData));
 
-  const dispatch = useDispatch();
-  const gameStatus = useSelector(getStatus);
-  const globalScore = useSelector(getScore);
+  const dispatch = useAppDispatch();
+  const gameStatus = useAppSelector(getStatus);
+  const globalScore = useAppSelector(getScore);
 
   useEffect(() => {
     if (gameStatus === "loading") {
@@ -21,11 +26,7 @@ const App = () => {
           const cleanedData = cleanData(data);
           setData(cleanedData);
         })
-        .then(() =>
-          dispatch({
-            type: "DATA_LOADED",
-          })
-        );
+        .then(() => dispatch(slice.actions.dataLoaded()));
     }
   }, [gameStatus]);
 

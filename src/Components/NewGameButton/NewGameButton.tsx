@@ -1,12 +1,12 @@
 // import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { resetScore } from "../../redux/actions";
+import { slice } from "../../redux/configureStore";
 
 const NewGameButton = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(resetScore());
+    dispatch(slice.actions.resetScore());
   };
 
   return (

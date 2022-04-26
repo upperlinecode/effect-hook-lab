@@ -1,37 +1,37 @@
-import { legacy_createStore as createStore } from "redux";
-import { ScoreAction } from "./actions";
+import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const initialState = {
   score: 1000,
   status: "loaded" as "loading" | "loaded" | "game over",
 };
 
-export type stateType = typeof initialState;
+export const slice = createSlice({
+  name: "app",
+  initialState,
+  reducers: {
+    increaseScore(state, action: PayloadAction<number>) {
+      state.score = state.score + action.payload;
+    },
+    decreaseScore(state, action: PayloadAction<number>) {
+      state.score = state.score - action.payload;
+    },
+    resetScore(state) {
+      state.score = 0;
+      state.status = "loading";
+    },
+    dataLoaded(state) {
+      state.status = "loaded";
+    },
+  },
+});
 
-const reducer = (state = initialState, action: ScoreAction) => {
-  // Every branch of this switch MUST return a state.
-  switch (action.type) {
-    case "INCREASE_SCORE":
-      // ====== Super verbose way
-      // const currentScore = state.score;
-      // ////OR (not recommended): const currentScore = getScore(state);
-      // const newState = { ...state, score: currentScore + action.payload };
-      // return newState;
-      // ====== Simpler way
-      return { ...state, score: state.score + action.payload };
-    case "DECREASE_SCORE":
-      return { ...state, score: state.score - action.payload };
-    case "RESET_SCORE":
-      return { ...state, score: 0, status: "loading" as const };
-    case "DATA_LOADED":
-      return { ...state, status: "loaded" as const };
-    default:
-      return state; // If no type match, return original state unchanged.
-  }
-};
+export const myStore = configureStore({
+  reducer: { [slice.name]: slice.reducer },
+  devTools: true,
+});
 
-export const myStore = createStore(
-  reducer,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-);
+export type RootState = ReturnType<typeof myStore.getState>;
+export type AppDispatch = typeof myStore.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
