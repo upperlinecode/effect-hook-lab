@@ -35,3 +35,17 @@
   * Fuzzy string matching algorithms/libraries
 * **One at a Time** - Currently, it is possible to open more than one clue at a time. Fix this bug so that only one clue can be open at any one time!
 * **Turn-based** - Convert the game to a turn-based game so that multiple people can participate and answer questions. Keep score for each team/person.
+
+## Redux Toolkit Steps
+
+**Documentation:** https://redux-toolkit.js.org/introduction/getting-started
+
+1. Install Redux Toolkit - `npm install @reduxjs/toolkit`
+2. Update `./src/redux/configureStore.ts` to leverage the `configureStore` utility function from `@reduxjs/toolkit`.
+3. Refactor reducer to become a reducer map, which is a much more common pattern. Use `app` as a key.
+4. Create a `slice` utilizing the `createSlice` utility function from `@reduxjs/toolkit` having the name key from our reducer map (`app`).
+5. Update our newly created `slice`, to add in the reducers (which in turn will add in the action creators) from our old `reducer` and `action creators`.
+6. Update our components to leverage these new action creators from the slice.
+7. Update selectors to pull correctly from the store.
+8. Create a `useAppDispatch` and a `useAppSelector` to be "smarter" with TypeScript so that it knows what actions our store accepts and what selectors are valid based on our store.
+9. Replace existing `useDispatch` and `useSelector` with our `useAppDispatch` and `useAppSelector`.
