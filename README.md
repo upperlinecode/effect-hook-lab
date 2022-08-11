@@ -31,12 +31,14 @@ You don't need to master any of these right away, but know that they are there f
 
    - Since this is an array, we can use the `.map()` method on it directly and render a `<Category />` for each one. Make sure you pass the category number as a prop to each `<Category />` component.
 
-3. **Display Category Names** - Before moving on, make sure each category is displaying the of the category. We'll eventually use the API to do this, but you can reference the object included in `category.jsx` to look up category names locally for now.
+3. **Display Category Names** - Before moving on, make sure each category is displaying the of the category. We'll eventually use the API to do this, but you can reference the object included in `Category.jsx` to look up category names locally for now.
 
-4. **Get the Data** - Each `<Category />` should have at least one prop - a `categoryNumber` or similar. This is where you'll write your `useEffect` - a category component will make a call to the jservice API to gather its corresponding clues.
+4. **Get the Data** - Each `<Category />` should have at least one prop - a `categoryNumber` or similar. This is where you'll write your `useEffect` - a category component will make a call to the jservice API to gather its corresponding clues. You'll want to use the `/clues` endpoint, with a `category` option included.
 
-   - Add a `useEffect()` call above the return of our `App` component. Since we only want to make the call to the API on the initial rendering of our App, for now it will likely have no dependencies and look something like this: `useEffect(()=>{}, [])`
-   - Inside your useEffect function, use the standard `fetch.then().then().catch()` flow or an [asynchronous function](https://designcode.io/react-hooks-handbook-fetch-data-from-an-api) to make a call to the API and store the response (once the promise has resolved) in your state variable.
+   - You'll probably be fetching a url that looks something like this: `"https://jservice.io/api/clues?category=" + 783`, where 783 is replaced by whatever category you happen to be using.
+   - Find the `useEffect()` call in the `Category` component. Since we only want to make the call to the API on the initial rendering of each category, for now it will likely have no dependencies and look something like this: `useEffect(()=>{}, [])`
+   - Inside your `useEffect` function, use an [asynchronous function](https://designcode.io/react-hooks-handbook-fetch-data-from-an-api) to make a call to the API and store the response (once the promise has resolved) in your state variable.
+     - If you wish, you can also use the standard `fetch.then().then().catch()` flow instead.
    - This is a great opportunity to use the `getFiveClues()` helper function - this will narrow your API response down from 100 answers to a smaller list of 5 - one per relevant point value.
    - Be sure to store the clues you wish to render in the appropriate state variable.
 
