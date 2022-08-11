@@ -1,92 +1,31 @@
-import data from "./sample_data.json";
+export const getRandomItemFrom = (arr) => {
+  const i = Math.floor(Math.random() * arr.length);
+  return arr[i];
+}
 
-/**
- * @typedef {Object} Category
- * @property {number} id
- * @property {string} title
- * @property {string} created_at
- * @property {string} updated_at
- * @property {number} clues_count
- */
-
-/**
- * @typedef {Object} Data
- * @property {number} id
- * @property {string} answer
- * @property {string} question
- * @property {string} value
- * @property {string} airdate
- * @property {string} created_at
- * @property {string} updated_at
- * @property {number} category_id
- * @property {number} game_id
- * @property {number | null} invalid_count
- * @property {Category} category
- */
-
-/**
- * @typedef {Object} DataMap
- * @property {Data} [categoryTitle]
- */
-
-/**
- * @returns {Promise<Data[]>} - Returns the
- */
-export const callAPI = () => {
-  // You can make your call to the API here
-  // The endpoint that was used in testing was
-  // 'https://jservice.io/api/random?count=100'
-  // The response from this endpoint will play nicely with the cleaning function below.
-};
-
-/**
- * @param {Data[]} data
- *
- * @returns {DataMap}
- */
-export const cleanData = (data) => {
-  // re-organizes the raw API data to an object that looks like:
-  // {
-  //  categoryName: [{cardData}, {cardData}],
-  //  categoryname: [{cardData}, {cardData}, {cardData}],
-  //  ...
-  // }
-  const cleanedData = data.reduce((acc, currentValue) => {
-    if (currentValue.category.title in acc) {
-      acc[currentValue.category.title].push(currentValue);
+export const getFiveClues = (apiResponse) => {
+  // Organize clues by value
+  const valueSortedClues = {};
+  console.log(apiResponse)
+  for (let clue of apiResponse) {
+    console.log(clue)
+    if (valueSortedClues[clue.value]) {
+      valueSortedClues[clue.value].push(clue)
     } else {
-      acc[currentValue.category.title] = [currentValue];
-    }
-    return acc;
-  }, {});
-
-  // filters out any categories with incomplete sets of cards
-  const finalData = {};
-  for (var category in cleanedData) {
-    let countValues = 0;
-    cleanedData[category].forEach((card) => {
-      if (card.value != undefined) {
-        countValues += 1;
-      }
-    });
-    if (countValues == 5) {
-      finalData[category] = cleanedData[category];
+      valueSortedClues[clue.value] = [clue]
     }
   }
-  return finalData;
-};
+  // Generate final list of clues, 1 per point value 100-500
+  const finalFive = [100,200,300,400,500].map(val => (
+    getRandomItemFrom(valueSortedClues[val])
+  ))
+  return finalFive;
+}
 
-/**
- * use this function as a starter to clean answers before you check if the user's guess is correct!
- *
- * @param {string} answer
- *
- * @returns {string}
- */
 export const cleanAnswer = (answer) => {
-  const substringsToRemove = ["<i>", "</i>", '"', "<", "a ", "the "];
+  const substringsToRemove = ["<i>", "</i>", '"', "<", "a ", "the ", "\\", "."];
   substringsToRemove.forEach((substring) => {
-    answer = answer.replace(substring, "");
+    answer = answer.replace(substring, "").replace(substring, "");
   });
   return answer.trim();
 };

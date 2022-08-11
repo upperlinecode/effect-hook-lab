@@ -1,11 +1,10 @@
 // import React, { useEffect, useState } from "react";
 import "./App.css";
 import Board from "../Board/Board";
-import { cleanData } from "../utils";
-import data from "../sample_data.json";
 
 const App = () => {
-  const cleanedData = cleanData(data);
+  const defaultCategories = [74, 115, 268, 217, 783];
+
   return (
     <div className="App">
       <header className="App-header">
@@ -14,7 +13,7 @@ const App = () => {
           <h2>Score: </h2>
         </div>
       </header>
-      <Board categories={cleanedData} />
+      <Board categoryNumbers={defaultCategories} />
     </div>
   );
 };
