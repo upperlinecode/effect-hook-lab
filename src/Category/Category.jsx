@@ -23,7 +23,7 @@ const Category = ({ catNum, reset, updateScore }) => {
     };
 
     getQuestions(catNum);
-  }, [reset]);
+  }, [reset, catNum]);
 
   return (
     <div className="Category">
