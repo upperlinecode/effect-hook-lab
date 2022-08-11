@@ -1,30 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+// import { useEffect } from "react";
 import "./App.css";
 import Board from "../Board/Board";
-import { callAPI, CategoryType, cleanData } from "../utils";
-import sampleData from "../sample_data.json";
+// import sampleData from "../sample_data.json";
 import NewGameButton from "../NewGameButton/NewGameButton";
 
 const App = () => {
   const [score, setScore] = useState(0);
-  const [data, setData] = useState<CategoryType>({});
   const [reset, setReset] = useState(false);
+  const defaultCategories = [74, 115, 268, 217, 783];
 
-  const updateScore = (scoreToAdd: number) => {
-    setScore(score + scoreToAdd);
+  const updateScore = (scoreChange) => {
+    setScore(score + scoreChange);
   };
 
   const newGame = () => {
+    setScore(0);
     setReset(!reset);
     return reset;
   };
-
-  useEffect(() => {
-    callAPI().then((data) => {
-      const cleanedData = cleanData(data);
-      setData(cleanedData);
-    });
-  }, [reset]);
 
   return (
     <div className="App">
@@ -32,10 +26,14 @@ const App = () => {
         <h1 className="title"> Welcome to Jeopardy! </h1>
         <div className="score-box">
           <h2>Score: {score}</h2>
-          <NewGameButton clickHandler={() => newGame()} />
+          <NewGameButton clickHandler={newGame} />
         </div>
       </header>
-      <Board updateScore={updateScore} categories={data} />
+      <Board
+        reset={reset}
+        updateScore={updateScore}
+        categoryNumbers={defaultCategories}
+      />
     </div>
   );
 };
