@@ -1,7 +1,15 @@
 import Category from "../Category/Category";
 import "./Board.css";
 
-const Board = ({ categoryNumbers, updateScore, reset }) => {
+interface BoardProps {
+  categoryNumbers: number[];
+  updateScore: (scoreChange: number) => void;
+  reset: boolean;  
+}
+
+const Board = (props: BoardProps) => {
+  const { categoryNumbers, updateScore, reset } = props;
+  //Hover your cursor over the catNum variable to see how Typescript infers its type
   return (
     <div className="Board">
       {categoryNumbers.map((catNum) => {

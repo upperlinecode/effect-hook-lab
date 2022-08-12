@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import "./Category.css";
-import { getFiveClues } from "../utils";
+import { Clue, getFiveClues } from "../utils";
 
-const Category = ({ catNum, reset, updateScore }) => {
-  const [clues, setClues] = useState([]);
-  const [categoryName, setCategoryName] = useState("Cat");
+interface CategoryProps {
+  catNum: number;
+  updateScore: (scoreChange: number) => void;
+  reset: boolean;
+}
+
+const Category = (props: CategoryProps) => {
+  const { catNum, reset, updateScore } = props;
+  const [clues, setClues] = useState<Clue[]>([]);
+  const [categoryName, setCategoryName] = useState<string>("Cat");
 
   useEffect(() => {
-    const getQuestions = async (categoryNumber) => {
+    const getQuestions = async (categoryNumber: number) => {
       const endpoint =
-        "https://jservice.io/api/clues?category=" + String(categoryNumber);
+        `https://jservice.io/api/clues?category=${categoryNumber}`;
       const response = await fetch(endpoint);
-      const newQuestions = await response.json();
+      const newQuestions: Clue[] = await response.json();
 
       // Access the category name and update state accordingly.
       setCategoryName(newQuestions[0].category.title);

@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import "./Card.css";
-import { cleanAnswer } from "../utils";
+import { cleanAnswer, Clue } from "../utils";
 
-const Card = ({ updateScore, questionData }) => {
-  const [showing, setShowing] = useState("front");
-  const [guess, setGuess] = useState("");
-  const [clickable, setClickable] = useState(true);
-  const [correctAnswer, setCorrectAnswer] = useState("");
+interface CardProps {
+  updateScore: (scoreChange: number) => void;
+  questionData: Clue;
+}
+
+const Card = (props: CardProps) => {
+  const { updateScore, questionData } = props;
+  const [showing, setShowing] = useState<string>("front");
+  const [guess, setGuess] = useState<string>("");
+  const [clickable, setClickable] = useState<boolean>(true);
+  const [correctAnswer, setCorrectAnswer] = useState<string>("");
 
   useEffect(() => {
     // console.log(cleanAnswer(data.answer.toLowerCase()));
@@ -17,11 +23,11 @@ const Card = ({ updateScore, questionData }) => {
     clickable && setShowing("back");
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setGuess(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:  React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // update the score based on whether the guess was correct
     const guessIsCorrect =
@@ -49,13 +55,13 @@ const Card = ({ updateScore, questionData }) => {
       </div>
       <div className={`card-back ${showing === "front" ? "hidden" : ""}`}>
         <p className="card-question">{questionData.question}</p>
-        <form className="answer-group">
+        <form className="answer-group" onSubmit={handleSubmit}>
           <input
             type="text"
             name="answer-box"
             onChange={(e) => handleChange(e)}
           />
-          <input type="submit" onClick={handleSubmit} value="Guess!" />
+          <input type="submit" value="Guess!" />
         </form>
       </div>
     </div>

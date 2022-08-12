@@ -1,9 +1,14 @@
 // import React, { useState } from "react";
 
-export default function NewGameButton(props: { clickHandler: Function }) {
+interface NewGameButtonProps {
+  clickHandler: () => boolean;
+}
+
+export default function NewGameButton(props: NewGameButtonProps) {
+  const { clickHandler } = props;
   return (
     <div className="NewGameButton">
-      <button onClick={() => props.clickHandler()}>New Game</button>
+      <button onClick={() => clickHandler()}>New Game</button>
     </div>
   );
 }

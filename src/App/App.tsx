@@ -6,11 +6,11 @@ import Board from "../Board/Board";
 import NewGameButton from "../NewGameButton/NewGameButton";
 
 const App = () => {
-  const [score, setScore] = useState(0);
-  const [reset, setReset] = useState(false);
-  const defaultCategories = [74, 115, 268, 217, 783];
+  const [score, setScore] = useState<number>(0);
+  const [reset, setReset] = useState<boolean>(false);
+  const defaultCategories: number[] = [74, 115, 268, 217, 783];
 
-  const updateScore = (scoreChange) => {
+  const updateScore = (scoreChange: number) => {
     setScore(score + scoreChange);
   };
 
