@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-// import Card from "../Card/Card";
-import { useState } from "react";
-import { useEffect } from "react";
-import "./Category.css";
-
-const catNames = {
-  74: "Animals",
-  115: "Science",
-  268: "Stupid Answers",
-  217: "3-letter Words",
-  783: "Mythology",
-};
-
-const Category = (props) => {
-  const [clues, setClues] = useState([]);
-
-  useEffect(() => {}, []);
-=======
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import "./Category.css";
@@ -43,16 +24,10 @@ const Category = ({ catNum, reset, updateScore }) => {
 
     getQuestions(catNum);
   }, [reset, catNum]);
->>>>>>> 7758ea4fddd6ffc7fbadbf151946b23022c3574c
 
   return (
     <div className="Category">
       <div className="title-card">
-<<<<<<< HEAD
-        <h3 className="category-title">{/* CATEGORY NAME HERE*/}</h3>
-      </div>
-      {/* ADD CARDS HERE */}
-=======
         <h3 className="category-title">{categoryName}</h3>
       </div>
       {clues.map((clue) => {
@@ -60,7 +35,6 @@ const Category = ({ catNum, reset, updateScore }) => {
           <Card updateScore={updateScore} key={clue.id} questionData={clue} />
         );
       })}
->>>>>>> 7758ea4fddd6ffc7fbadbf151946b23022c3574c
     </div>
   );
 };

@@ -28,8 +28,4 @@ export const cleanAnswer = (answer) => {
     answer = answer.replace(substring, "").replace(substring, "");
   });
   return answer.trim();
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 7758ea4fddd6ffc7fbadbf151946b23022c3574c
