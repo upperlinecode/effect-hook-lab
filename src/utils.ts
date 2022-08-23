@@ -28,7 +28,7 @@ export const getFiveClues = (clues: Clue[]) => {
   // Organize clues by value
   const valueSortedClues: { [key: string]: Clue[] } = {};
   clues.forEach((clue) => {
-    console.log(clue);
+    // console.log('clue: ', clue);
     if (!valueSortedClues[clue.value]) {
       valueSortedClues[clue.value] = [clue];
     } else {
