@@ -4,7 +4,7 @@ import "./Board.css";
 interface BoardProps {
   categoryNumbers: number[];
   updateScore: (scoreChange: number) => void;
-  reset: boolean;  
+  reset: boolean;
 }
 
 const Board = (props: BoardProps) => {
@@ -12,9 +12,14 @@ const Board = (props: BoardProps) => {
   //Hover your cursor over the catNum variable to see how Typescript infers its type
   return (
     <div className="Board">
-      {categoryNumbers.map((catNum) => {
+      {categoryNumbers.map((catNum, i) => {
         return (
-          <Category reset={reset} catNum={catNum} updateScore={updateScore} />
+          <Category
+            reset={reset}
+            catNum={catNum}
+            updateScore={updateScore}
+            key={i}
+          />
         );
       })}
     </div>
