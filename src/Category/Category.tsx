@@ -1,4 +1,11 @@
 import { useEffect, useState } from "react";
+
+import { useAppSelector, useAppDispatch } from "../Redux/hooks";
+import {
+  selectCluesByCategory,
+  setQuestionsByCategory,
+} from "../Redux/questionsSlice";
+
 import Card from "../Card/Card";
 import "./Category.css";
 import { Clue, getFiveClues } from "../utils";
@@ -11,13 +18,17 @@ interface CategoryProps {
 
 const Category = (props: CategoryProps) => {
   const { catNum, reset, updateScore } = props;
-  const [clues, setClues] = useState<Clue[]>([]);
   const [categoryName, setCategoryName] = useState<string>("Cat");
+  const dispatch = useAppDispatch();
+
+  // selector: select data from state
+  const reduxClues: Clue[] = useAppSelector((state) =>
+    selectCluesByCategory(state, catNum)
+  );
 
   useEffect(() => {
     const getQuestions = async (categoryNumber: number) => {
-      const endpoint =
-        `https://jservice.io/api/clues?category=${categoryNumber}`;
+      const endpoint = `https://jservice.io/api/clues?category=${categoryNumber}`;
       const response = await fetch(endpoint);
       const newQuestions: Clue[] = await response.json();
 
@@ -26,18 +37,20 @@ const Category = (props: CategoryProps) => {
 
       // Use the helper function to get an array of five clues in ascending value order.
       const topFiveQuestions = getFiveClues(newQuestions);
-      setClues(topFiveQuestions);
+
+      // dispatch the action/reducer
+      dispatch(setQuestionsByCategory({ categoryNumber, topFiveQuestions }));
     };
 
     getQuestions(catNum);
-  }, [reset, catNum]);
+  }, [reset, catNum, dispatch]);
 
   return (
     <div className="Category">
       <div className="title-card">
         <h3 className="category-title">{categoryName}</h3>
       </div>
-      {clues.map((clue) => {
+      {reduxClues?.map((clue) => {
         return (
           <Card updateScore={updateScore} key={clue.id} questionData={clue} />
         );
