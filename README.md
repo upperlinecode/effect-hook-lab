@@ -23,7 +23,7 @@
 5. Each reducer function you wrote will get its own action creator packaged in the slice's `.actions` property. Destructure them out and export them for use elsewhere.
 6. Delete the `actions.ts` file. This will break your app temporarily, so you'll need to go find the components which were using our old action creators to leverage the new action creators exported from the slice.
 7. Update selectors to pull correctly from the store. You'll have to update the type and you have two options for how to do that - you can use "any" as a temporary workaround, or you can take the safer approach and redefine the `stateType` according to the new state of our application.
-8. Create a `useAppDispatch` and a `useAppSelector` to be "smarter" with TypeScript so that it knows what actions our store accepts and what selectors are valid based on our store. The [documentation](https://redux-toolkit.js.org/usage/usage-with-typescript) on how to implement both of these pieces is extremely helpful.
+8. Create a `useAppDispatch` and a `useAppSelector` to be "smarter" with TypeScript so that it knows what actions our store accepts and what selectors are valid based on our store. If you haven't used them before, the [documentation](https://redux-toolkit.js.org/usage/usage-with-typescript) on TypeScript with RTK and corresponding [tutorial](https://redux-toolkit.js.org/tutorials/typescript) have some good examples of how to implement both of these pieces.
 9. Replace existing `useDispatch` and `useSelector` instances with our `useAppDispatch` and `useAppSelector`.
 
 ## EXTENSIONS
