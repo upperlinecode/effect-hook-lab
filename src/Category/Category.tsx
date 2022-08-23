@@ -1,14 +1,20 @@
-import { useEffect, useState } from "react";
+/*
+ref unwrap():
+https://redux-toolkit.js.org/api/createAsyncThunk#handling-thunk-results
+*/
+
+import { useEffect } from "react";
 
 import { useAppSelector, useAppDispatch } from "../Redux/hooks";
 import {
   selectCluesByCategory,
-  setQuestionsByCategory,
+  fetchQuestionsByCategory,
+  selectRequestStatus,
 } from "../Redux/questionsSlice";
 
 import Card from "../Card/Card";
 import "./Category.css";
-import { Clue, getFiveClues } from "../utils";
+import { Clue } from "../utils";
 
 interface CategoryProps {
   catNum: number;
@@ -18,7 +24,6 @@ interface CategoryProps {
 
 const Category = (props: CategoryProps) => {
   const { catNum, reset, updateScore } = props;
-  const [categoryName, setCategoryName] = useState<string>("Cat");
   const dispatch = useAppDispatch();
 
   // selector: select data from state
@@ -26,20 +31,17 @@ const Category = (props: CategoryProps) => {
     selectCluesByCategory(state, catNum)
   );
 
+  const loadingState = useAppSelector((state) => selectRequestStatus(state));
+
   useEffect(() => {
     const getQuestions = async (categoryNumber: number) => {
-      const endpoint = `https://jservice.io/api/clues?category=${categoryNumber}`;
-      const response = await fetch(endpoint);
-      const newQuestions: Clue[] = await response.json();
-
-      // Access the category name and update state accordingly.
-      setCategoryName(newQuestions[0].category.title);
-
-      // Use the helper function to get an array of five clues in ascending value order.
-      const topFiveQuestions = getFiveClues(newQuestions);
-
-      // dispatch the action/reducer
-      dispatch(setQuestionsByCategory({ categoryNumber, topFiveQuestions }));
+      if (categoryNumber) {
+        try {
+          await dispatch(fetchQuestionsByCategory(categoryNumber)).unwrap();
+        } catch (error) {
+          console.error("thunk error: ", error);
+        }
+      }
     };
 
     getQuestions(catNum);
@@ -48,7 +50,11 @@ const Category = (props: CategoryProps) => {
   return (
     <div className="Category">
       <div className="title-card">
-        <h3 className="category-title">{categoryName}</h3>
+        <h3 className="category-title">
+          {loadingState !== "pending"
+            ? reduxClues?.[0]?.category?.title
+            : "Loading..."}
+        </h3>
       </div>
       {reduxClues?.map((clue) => {
         return (
