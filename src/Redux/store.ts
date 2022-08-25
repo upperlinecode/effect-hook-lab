@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import questionsReducer from './questionsSlice';
+import cluesReducer from './cluesSlice';
 
 export const store = configureStore({
-  reducer: {questions: questionsReducer}
+  reducer: { clues: cluesReducer }
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

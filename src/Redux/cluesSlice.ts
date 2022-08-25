@@ -10,8 +10,8 @@ const initialState: SliceState = {
   byCategory: []
 }
 
-export const questionsSlice = createSlice({
-  name: 'questions',
+export const cluesSlice = createSlice({
+  name: 'clues',
   initialState,
   reducers: {
     setAllClues: (state, action) => {
@@ -20,10 +20,10 @@ export const questionsSlice = createSlice({
   }
 })
 
-export const selectCluesByCategory = (state: RootState) => (
-  state.questions.byCategory
+export const selectAllClues = (state: RootState) => (
+  state.clues.byCategory
 )
 
-export const { setAllClues } = questionsSlice.actions
+export const { setAllClues } = cluesSlice.actions
 
-export default questionsSlice.reducer
+export default cluesSlice.reducer

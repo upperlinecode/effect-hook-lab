@@ -4,7 +4,7 @@ import "./Board.css";
 import { Clue, getFiveClues } from "../utils";
 
 import { useAppSelector, useAppDispatch } from "../Redux/hooks";
-import { selectCluesByCategory, setAllClues } from "../Redux/questionsSlice";
+import { selectAllClues, setAllClues } from "../Redux/cluesSlice";
 
 interface BoardProps {
   categoryNumbers: number[];
@@ -17,10 +17,9 @@ const Board = (props: BoardProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
-  // selector: select data from state
-  const cluesByCategory: Clue[][] = useAppSelector((state) =>
-    selectCluesByCategory(state)
-  );
+
+  // selector: select data from Redux state
+  const allClues: Clue[][] = useAppSelector((state) => selectAllClues(state));
 
   useEffect(() => {
     const getQuestions = async (categoryNumbers: number[]) => {
@@ -43,17 +42,15 @@ const Board = (props: BoardProps) => {
           `https://jservice.io/api/clues?category=${catId}`
         );
 
-        const newQuestions: Clue[] = await response.json();
-        const topFiveQuestions = getFiveClues(newQuestions);
-        return topFiveQuestions;
+        const newClues: Clue[] = await response.json();
+        const topFiveClues = getFiveClues(newClues);
+        return topFiveClues;
       });
 
-      const allQuestions = await Promise.all(responses);
-
-      // setCluesByCategory(allQuestions);
+      const allClues = await Promise.all(responses);
 
       // dispatch the action/reducer
-      dispatch(setAllClues(allQuestions));
+      dispatch(setAllClues(allClues));
       setIsLoading(false);
     };
 
@@ -65,7 +62,7 @@ const Board = (props: BoardProps) => {
     <>
       {isLoading && <div>Loading...</div>}
       <div className="Board">
-        {cluesByCategory?.map((clues: Clue[], i: number) => {
+        {allClues?.map((clues: Clue[], i: number) => {
           return (
             <Category
               reset={reset}
