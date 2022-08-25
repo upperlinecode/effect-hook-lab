@@ -24,7 +24,7 @@ const initialState: SliceState = {
 
 // Thunks
 export const fetchCluesByCategory = createAsyncThunk(
-  'questions/fetchCluesByCategory',
+  'clues/fetchCluesByCategory',
   async (categoryNumbers: number[]) => {
     // SO ref on Promise.all with fetch
     // https://stackoverflow.com/questions/31710768/how-can-i-fetch-an-array-of-urls-with-promise-all
