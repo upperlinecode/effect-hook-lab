@@ -5,10 +5,11 @@ import Board from "../Board/Board";
 // import sampleData from "../sample_data.json";
 import NewGameButton from "../NewGameButton/NewGameButton";
 
+const defaultCategories: number[] = [74, 115, 268, 217, 783];
+
 const App = () => {
   const [score, setScore] = useState<number>(0);
   const [reset, setReset] = useState<boolean>(false);
-  const defaultCategories: number[] = [74, 115, 268, 217, 783];
 
   const updateScore = (scoreChange: number) => {
     setScore(score + scoreChange);
