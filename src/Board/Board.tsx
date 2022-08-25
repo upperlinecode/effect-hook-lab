@@ -3,6 +3,9 @@ import Category from "../Category/Category";
 import "./Board.css";
 import { Clue, getFiveClues } from "../utils";
 
+import { useAppSelector, useAppDispatch } from "../Redux/hooks";
+import { selectCluesByCategory, setAllClues } from "../Redux/questionsSlice";
+
 interface BoardProps {
   categoryNumbers: number[];
   updateScore: (scoreChange: number) => void;
@@ -11,8 +14,13 @@ interface BoardProps {
 
 const Board = (props: BoardProps) => {
   const { categoryNumbers, updateScore, reset } = props;
-  const [cluesByCategory, setCluesByCategory] = useState<Clue[][]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+  // selector: select data from state
+  const cluesByCategory: Clue[][] = useAppSelector((state) =>
+    selectCluesByCategory(state)
+  );
 
   useEffect(() => {
     const getQuestions = async (categoryNumbers: number[]) => {
@@ -42,12 +50,15 @@ const Board = (props: BoardProps) => {
 
       const allQuestions = await Promise.all(responses);
 
-      setCluesByCategory(allQuestions);
+      // setCluesByCategory(allQuestions);
+
+      // dispatch the action/reducer
+      dispatch(setAllClues(allQuestions));
       setIsLoading(false);
     };
 
     getQuestions(categoryNumbers);
-  }, [reset, categoryNumbers]);
+  }, [reset, categoryNumbers, dispatch]);
 
   //Hover your cursor over the catNum variable to see how Typescript infers its type
   return (
