@@ -1,26 +1,26 @@
 export const getRandomItemFrom = (arr) => {
   const i = Math.floor(Math.random() * arr.length);
   return arr[i];
-}
+};
 
 export const getFiveClues = (apiResponse) => {
   // Organize clues by value
   const valueSortedClues = {};
-  console.log(apiResponse)
+  // console.log(apiResponse)
   for (let clue of apiResponse) {
-    console.log(clue)
+    // console.log(clue)
     if (valueSortedClues[clue.value]) {
-      valueSortedClues[clue.value].push(clue)
+      valueSortedClues[clue.value].push(clue);
     } else {
-      valueSortedClues[clue.value] = [clue]
+      valueSortedClues[clue.value] = [clue];
     }
   }
   // Generate final list of clues, 1 per point value 100-500
-  const finalFive = [100,200,300,400,500].map(val => (
+  const finalFive = [100, 200, 300, 400, 500].map((val) =>
     getRandomItemFrom(valueSortedClues[val])
-  ))
+  );
   return finalFive;
-}
+};
 
 export const cleanAnswer = (answer) => {
   const substringsToRemove = ["<i>", "</i>", '"', "<", "a ", "the ", "\\", "."];

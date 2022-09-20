@@ -42,12 +42,13 @@ Much of the styling has been built out already.
 
 1. **Render the Cards** - Now it's time to map over the clues you've stored in state to generate one `<Card />` for each clue.
 
-1. **Get the Data via API** - Each `<Category />` should have at least one prop - a `categoryNumber` or similar. This is where you'll write your `useEffect` - a category component will make a call to the jservice API to gather its corresponding clues. You'll want to use the `/clues` endpoint, with a `category` option included.
+1. **Get the Data via API** - Make the api calls in `useEffect` in `<App />`.
 
    - You'll probably be fetching a url that looks something like this: `"https://jservice.io/api/clues?category=" + 783`, where 783 is replaced by whatever category you happen to be using.
-   - Find the `useEffect()` call in the `Category` component. Since we only want to make the call to the API on the initial rendering of each category, for now it will likely have no dependencies and look something like this: `useEffect(()=>{}, [])`
+   - Find the `useEffect()` call in the `<App />` component. Since we only want to make the call to the API on the initial rendering of the App, for now it will likely have no dependencies and look something like this: `useEffect(()=>{}, [])`
    - Inside your `useEffect` function, use an [asynchronous function](https://designcode.io/react-hooks-handbook-fetch-data-from-an-api) to make a call to the API and store the response (once the promise has resolved) in your state variable.
      - If you wish, you can also use the standard `fetch.then().then().catch()` flow instead.
+   - Update: use Promise.all() example at bottom of this Readme.
    - This is a great opportunity to use the `getFiveClues()` helper function - this will narrow your API response down from 100 answers to a smaller list of 5 - one per relevant point value.
    - Be sure to store the clues you wish to render in the appropriate state variable.
 
@@ -79,3 +80,35 @@ Much of the styling has been built out already.
   - Fuzzy string matching algorithms/libraries
 - **One at a Time** - Currently, it is possible to open more than one clue at a time. Fix this bug so that only one clue can be open at any one time!
 - **Turn-based** - Convert the game to a turn-based game so that multiple people can participate and answer questions. Keep score for each team/person.
+
+---
+
+Ref: Promise.all
+
+```js
+/*
+  We should use Promise.all if we have to group a number of network request
+  together and need to await for all of them to resolve before continuing
+  processing.
+
+  Promise.all keeps the passed in array order regardless of when each
+  promise resolves.
+
+  SO ref on Promise.all with fetch
+  https://stackoverflow.com/questions/31710768/how-can-i-fetch-an-array-of-urls-with-promise-all
+
+  MDN Promise.all
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+*/
+const responses = categoryIds.map(async (catId) => {
+  const response = await fetch(
+    `https://jservice.io/api/clues?category=${catId}`
+  );
+
+  const newQuestions = await response.json();
+  const topFiveQuestions = getFiveClues(newQuestions);
+  return topFiveQuestions;
+});
+
+const cluesResult = await Promise.all(responses);
+```
