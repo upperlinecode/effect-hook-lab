@@ -1,9 +1,14 @@
-// import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+
+import { allCluesHardcoded } from "../data";
+
 import "./App.css";
 import Board from "../Board/Board";
 
 const App = () => {
-  const defaultCategories = [74, 115, 268, 217, 783];
+  const [allClues, setAllClues] = useState(allCluesHardcoded);
+
+  // useEffect(() => {}, []);
 
   return (
     <div className="App">
@@ -13,7 +18,7 @@ const App = () => {
           <h2>Score: </h2>
         </div>
       </header>
-      <Board categoryNumbers={defaultCategories} />
+      <Board allClues={allClues} />
     </div>
   );
 };
