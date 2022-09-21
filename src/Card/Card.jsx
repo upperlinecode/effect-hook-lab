@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Card.css";
 
-const Card = ({ clueData: { question, value } }) => {
+const Card = (props) => {
   const [showing, setShowing] = useState("front");
   const [clickable, setClickable] = useState(true);
 
@@ -16,10 +16,10 @@ const Card = ({ clueData: { question, value } }) => {
         className={`card-front ${showing === "back" ? "hidden" : ""}`}
         onClick={handleClick}
       >
-        <p className="card-value">{value}</p>
+        <p className="card-value">{/* CARD VALUE HERE */}</p>
       </div>
       <div className={`card-back ${showing === "front" ? "hidden" : ""}`}>
-        <p className="card-question">{question}</p>
+        <p className="card-question">{/* QUESTION TEXT HERE */}</p>
       </div>
     </div>
   );
