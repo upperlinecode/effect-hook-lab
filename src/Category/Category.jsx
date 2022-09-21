@@ -1,27 +1,16 @@
-// import Card from "../Card/Card";
-import { useState } from "react";
-import { useEffect } from "react";
+import Card from "../Card/Card";
 import "./Category.css";
 
-const catNames = {
-  74: "Animals",
-  115: "Science",
-  268: "Stupid Answers",
-  217: "3-letter Words",
-  783: "Mythology",
-};
-
-const Category = (props) => {
-  const [clues, setClues] = useState([]);
-
-  useEffect(() => {}, []);
-
+const Category = ({ categoryClues }) => {
+  const categoryName = categoryClues[0].category.title;
   return (
     <div className="Category">
       <div className="title-card">
-        <h3 className="category-title">{/* CATEGORY NAME HERE*/}</h3>
+        <h3 className="category-title">{categoryName}</h3>
       </div>
-      {/* ADD CARDS HERE */}
+      {categoryClues.map((clueData, i) => (
+        <Card clueData={clueData} key={i} />
+      ))}
     </div>
   );
 };
